@@ -8,7 +8,7 @@ import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/ep-admin/",
+  base: "/element-plus-admin/",
   server: {
     port: 7788,
     open: true,
