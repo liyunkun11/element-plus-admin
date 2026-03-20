@@ -120,7 +120,7 @@ const getTableData = (resetPage: boolean = true) => {
   tableConfig.loading = true;
   // 模拟产生随机数据
   setTimeout(() => {
-    tableConfig.data = Array.from({ length: 100 }, () => ({
+    tableConfig.data = Array.from({ length: searchForm.pageSize }, () => ({
       roleName: `角色名称_${Math.random() * 100}`,
       roleCode: `ROLE_${Math.random() * 100}`,
       roleDesc: `角色描述_${Math.random() * 100}`,

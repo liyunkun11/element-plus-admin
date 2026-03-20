@@ -134,11 +134,11 @@ const getTableData = (resetPage: boolean = true) => {
   tableConfig.loading = true;
   // 模拟产生随机数据
   setTimeout(() => {
-    tableConfig.data = Array.from({ length: 100 }, () => ({
-      userName: `名称_${Math.random() * 100}`,
-      userSex: `性别_${Math.random() * 100}`,
-      userPhone: `手机号_${Math.random() * 100}`,
-      userStatus: `状态_${Math.random() * 100}`,
+    tableConfig.data = Array.from({ length: searchForm.pageSize }, (_, i) => ({
+      userName: `名称_${i}`,
+      userSex: `性别_${i}`,
+      userPhone: `手机号_${i}`,
+      userStatus: `状态_${i}`,
       createTime: new Date().toLocaleString(),
       operation: "操作",
     }));
