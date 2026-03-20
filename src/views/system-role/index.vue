@@ -28,7 +28,11 @@
         </el-button>
       </div>
       <div class="content-table">
-        <GTable v-bind="tableConfig" />
+        <GTable v-bind="tableConfig">
+          <template #operation="{ row }">
+            <ActionBar :list="actionList" :data="row" @click="handleAction" />
+          </template>
+        </GTable>
       </div>
       <div class="content-pagination">
         <el-pagination
@@ -47,6 +51,7 @@
 <script setup lang="ts">
 import { reactive } from "vue";
 import type { GTableProps } from "@/components/GTable/types";
+import type { ActionBarButton } from "@/components/ActionBar/types";
 
 // 搜索表单数据
 const searchForm = reactive({
@@ -74,8 +79,25 @@ const tableConfig = reactive<GTableProps>({
       title: "角色描述",
       field: "roleDesc",
     },
+    {
+      title: "操作",
+      field: "action",
+      width: 200,
+      slots: {
+        default: "operation",
+      },
+    },
   ],
 });
+
+const actionList: ActionBarButton[] = [
+  { label: "编辑", value: "edit" },
+  { label: "删除", value: "delete", confirm: "确定要删除该角色吗？" },
+];
+
+const handleAction = (value: string, data: any) => {
+  console.log("点击了操作：", value, data);
+};
 
 // 搜索回调
 const handleSearch = () => {

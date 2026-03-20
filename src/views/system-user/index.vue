@@ -32,13 +32,8 @@
       </div>
       <div class="content-table">
         <GTable v-bind="tableConfig">
-          <template #operation>
-            <el-button type="primary" size="small">
-              编辑
-            </el-button>
-            <el-button type="danger" size="small">
-              删除
-            </el-button>
+          <template #operation="{ row }">
+            <ActionBar :list="actionList" :data="row" @click="handleAction" />
           </template>
         </GTable>
       </div>
@@ -59,6 +54,7 @@
 <script setup lang="ts">
 import { reactive } from "vue";
 import type { GTableProps } from "@/components/GTable/types";
+import type { ActionBarButton } from "@/components/ActionBar/types";
 
 // 搜索表单数据
 const searchForm = reactive({
@@ -103,6 +99,18 @@ const tableConfig = reactive<GTableProps>({
   ],
 });
 
+const actionList: ActionBarButton[] = [
+  { label: "编辑", value: "edit" },
+  { label: "删除", value: "delete", confirm: "确定要删除该用户吗？" },
+  { label: "禁用", value: "disable", confirm: "确定要禁用该用户吗？" },
+  { label: "启用", value: "enable", confirm: "确定要启用该用户吗？" },
+  { label: "重置密码", value: "resetPassword", confirm: "确定要重置该用户密码吗？" },
+];
+
+const handleAction = (value: string, data: any) => {
+  console.log("点击了操作：", value, data);
+};
+
 // 搜索回调
 const handleSearch = () => {
   getTableData();
@@ -127,7 +135,7 @@ const getTableData = (resetPage: boolean = true) => {
   // 模拟产生随机数据
   setTimeout(() => {
     tableConfig.data = Array.from({ length: 100 }, () => ({
-      userName: `角色名称_${Math.random() * 100}`,
+      userName: `名称_${Math.random() * 100}`,
       userSex: `性别_${Math.random() * 100}`,
       userPhone: `手机号_${Math.random() * 100}`,
       userStatus: `状态_${Math.random() * 100}`,
