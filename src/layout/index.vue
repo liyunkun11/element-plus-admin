@@ -40,6 +40,9 @@ import TopHeader from "./components/TopHeader.vue";
     flex: 1;
     min-height: 0;
     background-color: @color-bg-page;
+    &:not(:has(.page-no-base-overflow)) {
+      overflow: auto;
+    }
     &:not(:has(.page-no-base-padding)) {
       padding: 16px;
     }
